@@ -1,0 +1,1336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5" />
+    <title>PALSU GROUP · Official Technology Community</title>
+    <meta name="description" content="PALSU GROUP — powered by PALSU TECHNOLOGY. AI, software, websites, automation, cybersecurity, research, open source." />
+    <meta property="og:title" content="PALSU GROUP · Official Technology Community" />
+    <meta property="og:description" content="Empowering the Future Through AI, Software, Websites, Automation, Cybersecurity, and Open Source." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="theme-color" content="#000000" />
+    <link rel="manifest" href="manifest.json" />
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚀</text></svg>" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <style>
+        :root {
+            --bg-primary: #000000;
+            --bg-secondary: #071426;
+            --bg-glass: rgba(11, 31, 53, 0.55);
+            --cyan: #00D4FF;
+            --cyan-glow: #00F5FF;
+            --purple: #7B61FF;
+            --purple-glow: #A855F7;
+            --white: #FFFFFF;
+            --glass-border: rgba(0, 212, 255, 0.12);
+            --shadow-glow: 0 8px 48px rgba(0, 212, 255, 0.08);
+            --radius: 24px;
+            --radius-sm: 12px;
+            --transition: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+        body {
+            background: var(--bg-primary);
+            color: var(--white);
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        ::-webkit-scrollbar { width: 5px; }
+        ::-webkit-scrollbar-track { background: var(--bg-primary); }
+        ::-webkit-scrollbar-thumb { background: var(--cyan); border-radius: 10px; box-shadow: 0 0 20px var(--cyan-glow); }
+        a { color: var(--cyan); text-decoration: none; transition: var(--transition); }
+        a:hover { color: var(--cyan-glow); }
+        .container { max-width: 1280px; margin: 0 auto; padding: 0 28px; }
+
+        /* Announcement */
+        .announce {
+            background: linear-gradient(90deg, var(--bg-secondary), #0a1a2f);
+            border-bottom: 1px solid rgba(0, 212, 255, 0.06);
+            padding: 7px 0;
+            text-align: center;
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.5);
+            position: relative;
+            z-index: 99;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+        .announce .ticker { display: inline-block; animation: ticker 28s linear infinite; }
+        @keyframes ticker { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
+        .announce strong { color: var(--cyan); font-weight: 500; }
+
+        /* Navigation */
+        .glass-nav {
+            position: sticky;
+            top: 0;
+            z-index: 999;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(18px) saturate(1.2);
+            border-bottom: 1px solid rgba(0, 212, 255, 0.05);
+            padding: 10px 0;
+            transition: var(--transition);
+        }
+        .glass-nav.scrolled { background: rgba(0, 0, 0, 0.88); box-shadow: 0 4px 40px rgba(0, 0, 0, 0.5); }
+        .nav-wrap { display: flex; align-items: center; justify-content: space-between; max-width: 1280px; margin: 0 auto; padding: 0 28px; }
+        .nav-logo a { font-size: 1.5rem; font-weight: 700; color: var(--white); letter-spacing: -0.5px; }
+        .nav-logo span { color: var(--cyan); }
+        .nav-links { display: flex; gap: 6px; list-style: none; flex-wrap: wrap; }
+        .nav-links a {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.8rem;
+            font-weight: 500;
+            padding: 6px 14px;
+            border-radius: 40px;
+            transition: var(--transition);
+            position: relative;
+        }
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 2px;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: var(--cyan);
+            transform: translateX(-50%);
+            transition: var(--transition);
+            border-radius: 4px;
+        }
+        .nav-links a:hover::after, .nav-links a.active::after { width: 60%; }
+        .nav-links a:hover, .nav-links a.active { color: var(--white); background: rgba(0, 212, 255, 0.06); }
+        .nav-actions { display: flex; align-items: center; gap: 8px; }
+        .nav-actions button {
+            background: rgba(255, 255, 255, 0.04);
+            border: none;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 1rem;
+            padding: 6px 12px;
+            border-radius: 40px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .nav-actions button:hover { background: rgba(0, 212, 255, 0.08); color: var(--cyan); transform: scale(1.05); }
+        #menuToggle { display: none; }
+
+        /* Aurora Background */
+        .aurora {
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            pointer-events: none;
+            overflow: hidden;
+        }
+        .aurora-layer {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(100px);
+            opacity: 0.12;
+            animation: auroraDrift 22s ease-in-out infinite alternate;
+        }
+        .aurora-layer:nth-child(1) { width: 500px; height: 500px; background: var(--cyan); top: -10%; left: -8%; animation-delay: 0s; }
+        .aurora-layer:nth-child(2) { width: 400px; height: 400px; background: var(--purple-glow); bottom: -10%; right: -8%; animation-delay: -6s; }
+        .aurora-layer:nth-child(3) { width: 350px; height: 350px; background: #00D4FF; top: 45%; left: 45%; animation-delay: -12s; opacity: 0.06; }
+        @keyframes auroraDrift {
+            0% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(60px, -40px) scale(1.08); }
+            66% { transform: translate(-40px, 60px) scale(0.92); }
+            100% { transform: translate(30px, -30px) scale(1.04); }
+        }
+
+        /* Particles */
+        #particleCanvas { position: fixed; inset: 0; z-index: -1; pointer-events: none; opacity: 0.4; }
+
+        /* Hero */
+        .hero {
+            position: relative;
+            min-height: 90vh;
+            display: flex;
+            align-items: center;
+            padding: 60px 0 40px;
+            overflow: hidden;
+        }
+        .hero-glow {
+            position: absolute;
+            top: -30%;
+            right: -15%;
+            width: 700px;
+            height: 700px;
+            background: radial-gradient(circle, rgba(0, 212, 255, 0.06), transparent 70%);
+            pointer-events: none;
+            animation: pulseGlow 5s ease-in-out infinite;
+        }
+        @keyframes pulseGlow { 0%,100% { opacity: 0.5; transform: scale(1); } 50% { opacity: 1; transform: scale(1.1); } }
+        .hero-content { position: relative; z-index: 2; max-width: 820px; margin: 0 auto; text-align: center; }
+        .hero-badge {
+            display: inline-block;
+            background: rgba(0, 212, 255, 0.08);
+            border: 1px solid rgba(0, 212, 255, 0.15);
+            padding: 4px 20px;
+            border-radius: 40px;
+            font-size: 0.75rem;
+            color: var(--cyan);
+            letter-spacing: 0.5px;
+            margin-bottom: 20px;
+            backdrop-filter: blur(4px);
+        }
+        .hero h1 {
+            font-size: 4.8rem;
+            font-weight: 800;
+            letter-spacing: -3px;
+            background: linear-gradient(135deg, var(--white) 30%, var(--cyan) 60%, var(--purple-glow) 90%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-size: 200% 200%;
+            animation: gradShift 5s ease-in-out infinite;
+            line-height: 1.05;
+        }
+        @keyframes gradShift { 0%,100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
+        .hero .powered { font-size: 1.1rem; color: rgba(255, 255, 255, 0.25); margin: 6px 0 12px; letter-spacing: 2px; }
+        .hero .powered strong { color: var(--cyan); font-weight: 500; }
+        .hero .desc { font-size: 1.1rem; color: rgba(255, 255, 255, 0.5); max-width: 600px; margin: 12px auto 32px; line-height: 1.7; }
+        .hero .typing-wrap { font-size: 1.1rem; color: rgba(255, 255, 255, 0.35); margin-bottom: 28px; }
+        .hero .typing-wrap .typed {
+            color: var(--cyan);
+            border-right: 2px solid var(--cyan);
+            padding-right: 6px;
+            display: inline-block;
+            animation: blink 0.8s step-end infinite;
+        }
+        @keyframes blink { 0%,100% { border-color: var(--cyan); } 50% { border-color: transparent; } }
+        .hero-btns { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 34px;
+            border-radius: 60px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+            background: transparent;
+            color: var(--white);
+        }
+        .btn-primary { background: linear-gradient(135deg, var(--cyan), var(--purple-glow)); color: #000; box-shadow: 0 4px 30px rgba(0, 212, 255, 0.2); }
+        .btn-primary:hover { transform: scale(1.04); box-shadow: 0 8px 50px rgba(0, 212, 255, 0.3); }
+        .btn-outline { border: 1px solid rgba(0, 212, 255, 0.2); color: rgba(255, 255, 255, 0.7); }
+        .btn-outline:hover { border-color: var(--cyan); color: var(--white); background: rgba(0, 212, 255, 0.04); transform: scale(1.04); }
+        .btn-glow { border: 1px solid rgba(123, 97, 255, 0.2); color: rgba(255, 255, 255, 0.7); }
+        .btn-glow:hover { border-color: var(--purple-glow); color: var(--white); background: rgba(123, 97, 255, 0.06); transform: scale(1.04); }
+
+        /* Sections */
+        .section { padding: 80px 0; position: relative; }
+        .section-alt { background: rgba(7, 20, 38, 0.4); backdrop-filter: blur(2px); border-top: 1px solid rgba(0, 212, 255, 0.03); border-bottom: 1px solid rgba(0, 212, 255, 0.03); }
+        .section-title { font-size: 2.2rem; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 12px; display: flex; align-items: center; gap: 14px; }
+        .section-title i { color: var(--cyan); }
+        .section-divider { width: 60px; height: 3px; background: linear-gradient(90deg, var(--cyan), var(--purple-glow)); border-radius: 4px; margin-bottom: 36px; }
+        .section-sub { color: rgba(255, 255, 255, 0.3); font-size: 1rem; margin-bottom: 40px; }
+
+        /* Cards */
+        .grid-2, .grid-3, .grid-4 { display: grid; gap: 24px; }
+        .grid-2 { grid-template-columns: 1fr 1fr; }
+        .grid-3 { grid-template-columns: repeat(3, 1fr); }
+        .grid-4 { grid-template-columns: repeat(4, 1fr); }
+        .card {
+            background: var(--bg-glass);
+            backdrop-filter: blur(8px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius);
+            padding: 28px;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+        .card::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(0, 212, 255, 0.02), transparent 60%); opacity: 0; transition: var(--transition); }
+        .card:hover::before { opacity: 1; }
+        .card:hover { border-color: rgba(0, 212, 255, 0.2); transform: translateY(-6px); box-shadow: var(--shadow-glow); }
+        .card .icon-lg { font-size: 2.6rem; color: var(--cyan); display: block; margin-bottom: 12px; }
+        .card h4 { font-size: 1.1rem; margin-bottom: 6px; }
+        .card p { color: rgba(255, 255, 255, 0.5); font-size: 0.92rem; line-height: 1.6; }
+        .card .badge { display: inline-block; background: rgba(0, 212, 255, 0.08); color: var(--cyan); font-size: 0.65rem; padding: 2px 14px; border-radius: 40px; font-weight: 500; letter-spacing: 0.5px; border: 1px solid rgba(0, 212, 255, 0.06); }
+        .card .badge-purple { background: rgba(123, 97, 255, 0.08); color: var(--purple-glow); border-color: rgba(123, 97, 255, 0.06); }
+
+        /* Counters */
+        .counters-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 20px; padding: 20px 0 10px; }
+        .counter-item { text-align: center; background: var(--bg-glass); backdrop-filter: blur(6px); border: 1px solid var(--glass-border); border-radius: var(--radius-sm); padding: 24px 16px; transition: var(--transition); }
+        .counter-item:hover { border-color: rgba(0, 212, 255, 0.2); transform: translateY(-4px); }
+        .counter-item .num { font-size: 2.8rem; font-weight: 800; color: var(--cyan); letter-spacing: -1px; }
+        .counter-item .label { color: rgba(255, 255, 255, 0.3); font-size: 0.8rem; margin-top: 4px; }
+
+        /* Team */
+        .team-card {
+            background: var(--bg-glass);
+            backdrop-filter: blur(8px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius);
+            padding: 28px 20px;
+            text-align: center;
+            transition: var(--transition);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+        .team-card::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--cyan), var(--purple-glow)); transform: scaleX(0); transition: var(--transition); }
+        .team-card:hover::after { transform: scaleX(1); }
+        .team-card:hover { border-color: rgba(0, 212, 255, 0.2); transform: translateY(-8px); box-shadow: var(--shadow-glow); }
+        .team-card .avatar { width: 80px; height: 80px; border-radius: 50%; margin: 0 auto 14px; display: flex; align-items: center; justify-content: center; font-size: 2.6rem; background: linear-gradient(135deg, var(--cyan), var(--purple-glow)); color: #000; box-shadow: 0 0 30px rgba(0, 212, 255, 0.08); transition: var(--transition); }
+        .team-card:hover .avatar { transform: scale(1.04) rotate(-4deg); }
+        .team-card h4 { font-size: 1.05rem; }
+        .team-card .role { color: var(--cyan); font-size: 0.8rem; font-weight: 500; }
+        .team-card .bio { color: rgba(255, 255, 255, 0.35); font-size: 0.82rem; margin: 8px 0; }
+        .team-card .skills { display: flex; flex-wrap: wrap; gap: 4px; justify-content: center; margin-top: 8px; }
+        .team-card .skills span { background: rgba(0, 212, 255, 0.06); border: 1px solid rgba(0, 212, 255, 0.04); padding: 2px 12px; border-radius: 40px; font-size: 0.65rem; color: rgba(255, 255, 255, 0.4); }
+        .team-card .social-icons { display: flex; gap: 10px; justify-content: center; margin-top: 12px; }
+        .team-card .social-icons a { color: rgba(255, 255, 255, 0.15); font-size: 1rem; transition: var(--transition); }
+        .team-card .social-icons a:hover { color: var(--cyan); transform: scale(1.15); }
+
+        /* Founder */
+        .founder-card {
+            background: linear-gradient(135deg, var(--bg-glass), rgba(0, 212, 255, 0.02));
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius);
+            padding: 36px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 32px;
+            align-items: center;
+            transition: var(--transition);
+        }
+        .founder-card:hover { border-color: rgba(0, 212, 255, 0.15); }
+        .founder-avatar { width: 120px; height: 120px; border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 4rem; background: linear-gradient(135deg, var(--cyan), var(--purple-glow)); color: #000; box-shadow: 0 0 60px rgba(0, 212, 255, 0.06); }
+        .founder-info h3 { font-size: 1.6rem; }
+        .founder-info .founder-role { color: var(--cyan); font-weight: 500; }
+        .founder-info p { color: rgba(255, 255, 255, 0.4); max-width: 540px; margin: 8px 0 12px; line-height: 1.7; }
+        .founder-info .social-links { display: flex; gap: 12px; }
+        .founder-info .social-links a { color: rgba(255, 255, 255, 0.15); font-size: 1.3rem; transition: var(--transition); }
+        .founder-info .social-links a:hover { color: var(--cyan); transform: scale(1.1); }
+
+        /* FAQ */
+        .faq-item { border-bottom: 1px solid rgba(255, 255, 255, 0.03); padding: 16px 0; cursor: pointer; transition: var(--transition); }
+        .faq-item:hover { padding-left: 6px; }
+        .faq-item .q { display: flex; justify-content: space-between; align-items: center; font-weight: 500; color: rgba(255, 255, 255, 0.8); }
+        .faq-item .q i { transition: var(--transition); color: rgba(255, 255, 255, 0.15); }
+        .faq-item.active .q i { transform: rotate(180deg); color: var(--cyan); }
+        .faq-item .a { max-height: 0; overflow: hidden; transition: var(--transition); color: rgba(255, 255, 255, 0.35); font-size: 0.95rem; }
+        .faq-item.active .a { max-height: 200px; padding-top: 10px; }
+
+        /* Connect */
+        .connect-card {
+            background: var(--bg-glass);
+            backdrop-filter: blur(6px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-sm);
+            padding: 20px 24px;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+        .connect-card:hover { border-color: rgba(0, 212, 255, 0.2); transform: translateY(-4px); box-shadow: var(--shadow-glow); }
+        .connect-card .icon { font-size: 2rem; color: var(--cyan); display: block; margin-bottom: 4px; }
+        .connect-card .handle { color: rgba(255, 255, 255, 0.3); font-size: 0.85rem; }
+        .connect-card .actions { display: flex; gap: 6px; margin-top: 10px; flex-wrap: wrap; }
+        .connect-card .actions button { background: rgba(0, 212, 255, 0.04); border: 1px solid rgba(0, 212, 255, 0.06); color: rgba(255, 255, 255, 0.3); padding: 4px 14px; border-radius: 40px; font-size: 0.7rem; cursor: pointer; transition: var(--transition); }
+        .connect-card .actions button:hover { background: rgba(0, 212, 255, 0.08); color: var(--cyan); border-color: rgba(0, 212, 255, 0.1); }
+
+        /* Timeline */
+        .timeline { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 24px; }
+        .timeline-item { background: var(--bg-glass); backdrop-filter: blur(6px); border: 1px solid var(--glass-border); border-radius: var(--radius-sm); padding: 24px; border-left: 3px solid var(--cyan); transition: var(--transition); }
+        .timeline-item:hover { border-color: var(--cyan); transform: translateY(-4px); }
+        .timeline-item .year { font-size: 1.6rem; font-weight: 700; color: var(--cyan); }
+        .timeline-item ul { list-style: none; margin-top: 10px; }
+        .timeline-item ul li { color: rgba(255, 255, 255, 0.4); font-size: 0.9rem; padding: 3px 0; padding-left: 18px; position: relative; }
+        .timeline-item ul li::before { content: '▸'; position: absolute; left: 0; color: var(--cyan); opacity: 0.3; }
+
+        /* Footer */
+        .footer { background: var(--bg-primary); border-top: 1px solid rgba(0, 212, 255, 0.04); padding: 48px 0 24px; margin-top: 20px; }
+        .footer-grid { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 24px; }
+        .footer-links { display: flex; flex-wrap: wrap; gap: 16px; }
+        .footer-links a { color: rgba(255, 255, 255, 0.15); font-size: 0.8rem; transition: var(--transition); }
+        .footer-links a:hover { color: var(--cyan); }
+        .footer-social { display: flex; gap: 14px; }
+        .footer-social a { color: rgba(255, 255, 255, 0.08); font-size: 1.3rem; transition: var(--transition); }
+        .footer-social a:hover { color: var(--cyan); transform: scale(1.12); }
+        .footer-bottom { text-align: center; margin-top: 32px; font-size: 0.75rem; color: rgba(255, 255, 255, 0.04); letter-spacing: 1px; }
+
+        /* Back to Top */
+        .back-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 999;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            border: none;
+            background: linear-gradient(135deg, var(--cyan), var(--purple-glow));
+            color: #000;
+            font-size: 1.2rem;
+            cursor: pointer;
+            opacity: 0;
+            transform: scale(0.8);
+            transition: var(--transition);
+            box-shadow: 0 4px 30px rgba(0, 212, 255, 0.1);
+        }
+        .back-top.visible { opacity: 1; transform: scale(1); }
+        .back-top:hover { transform: scale(1.08); box-shadow: 0 8px 50px rgba(0, 212, 255, 0.2); }
+
+        /* Toast */
+        .toast {
+            position: fixed;
+            bottom: 100px;
+            right: 30px;
+            z-index: 9999;
+            background: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(0, 212, 255, 0.08);
+            border-radius: var(--radius-sm);
+            padding: 16px 24px;
+            max-width: 320px;
+            transform: translateY(80px);
+            opacity: 0;
+            transition: var(--transition);
+        }
+        .toast.show { transform: translateY(0); opacity: 1; }
+        .toast .t-title { color: var(--cyan); font-weight: 600; font-size: 0.9rem; }
+        .toast .t-body { color: rgba(255, 255, 255, 0.3); font-size: 0.8rem; }
+
+        /* Reveal */
+        .reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+
+        /* Owner Badge */
+        .owner-badge {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            z-index: 999;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(0, 212, 255, 0.05);
+            border-radius: 40px;
+            padding: 6px 18px;
+            font-size: 0.65rem;
+            color: rgba(255, 255, 255, 0.08);
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .owner-badge:hover { color: rgba(255, 255, 255, 0.2); border-color: rgba(0, 212, 255, 0.1); }
+
+        /* Responsive */
+        @media (max-width: 1024px) { .grid-4 { grid-template-columns: 1fr 1fr; } }
+        @media (max-width: 900px) {
+            .grid-2 { grid-template-columns: 1fr; }
+            .grid-3 { grid-template-columns: 1fr 1fr; }
+            .hero h1 { font-size: 3.4rem; }
+            .section-title { font-size: 1.8rem; }
+        }
+        @media (max-width: 700px) {
+            .grid-3 { grid-template-columns: 1fr; }
+            .grid-4 { grid-template-columns: 1fr; }
+            .nav-links { display: none; flex-direction: column; width: 100%; padding: 16px 0; gap: 4px; }
+            .nav-links.open { display: flex; }
+            #menuToggle { display: block; }
+            .hero h1 { font-size: 2.6rem; }
+            .hero .desc { font-size: 0.95rem; }
+            .counters-grid { grid-template-columns: 1fr 1fr; }
+            .founder-card { flex-direction: column; text-align: center; }
+            .founder-info .social-links { justify-content: center; }
+            .footer-grid { flex-direction: column; text-align: center; }
+            .toast { right: 16px; left: 16px; max-width: none; }
+            .back-top { bottom: 20px; right: 20px; width: 42px; height: 42px; font-size: 1rem; }
+            .section { padding: 50px 0; }
+            .announce { font-size: 0.7rem; }
+        }
+        @media (max-width: 480px) {
+            .hero h1 { font-size: 2rem; }
+            .hero-btns .btn { padding: 12px 22px; font-size: 0.85rem; }
+            .counter-item .num { font-size: 2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Aurora Background -->
+    <div class="aurora">
+        <div class="aurora-layer"></div>
+        <div class="aurora-layer"></div>
+        <div class="aurora-layer"></div>
+    </div>
+
+    <!-- Particles -->
+    <canvas id="particleCanvas"></canvas>
+
+    <!-- Toast -->
+    <div class="toast" id="toast">
+        <div class="t-title">🚀 Welcome</div>
+        <div class="t-body">PALSU GROUP · Official Technology Community</div>
+    </div>
+
+    <!-- Owner Badge -->
+    <a href="owner.html" class="owner-badge"><i class="fas fa-lock" style="margin-right:4px;"></i> Owner</a>
+
+    <!-- Announcement -->
+    <div class="announce" id="announceBar">
+        <div class="ticker">
+            <strong>🚀 Welcome to PALSU GROUP</strong> &nbsp;·&nbsp;
+            <strong>🤖 New AI Projects Released</strong> &nbsp;·&nbsp;
+            <strong>💻 Explore Latest Technology</strong> &nbsp;·&nbsp;
+            <strong>⚡ Follow Official Accounts</strong>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="glass-nav" id="mainNav">
+        <div class="nav-wrap">
+            <div class="nav-logo">
+                <a href="#"><i class="fas fa-cube" style="color:var(--cyan);"></i> PALSU<span>GROUP</span></a>
+            </div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#" class="active">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#updates">Updates</a></li>
+                <li><a href="#downloads">Downloads</a></li>
+                <li><a href="#features">Features</a></li>
+                <li><a href="#roadmap">Roadmap</a></li>
+                <li><a href="#statistics">Stats</a></li>
+                <li><a href="#team">Team</a></li>
+                <li><a href="#founder">Founder</a></li>
+                <li><a href="#community">Community</a></li>
+                <li><a href="#faq">FAQ</a></li>
+                <li><a href="#connect">Connect</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button id="themeToggle" title="Toggle theme"><i class="fas fa-moon"></i></button>
+                <button id="shareBtn" title="Share"><i class="fas fa-share-alt"></i></button>
+                <button id="menuToggle" title="Menu"><i class="fas fa-bars"></i></button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero" id="home">
+        <div class="hero-glow"></div>
+        <div class="container hero-content">
+            <div class="hero-badge"><i class="fas fa-robot"></i> AI-Powered · Next Generation</div>
+            <h1 id="heroTitle">PALSU GROUP</h1>
+            <p class="powered">Powered by <strong>PALSU TECHNOLOGY</strong></p>
+            <p class="desc" id="heroDesc">Empowering the Future Through Artificial Intelligence, Software Development, Websites, Automation, Cybersecurity, Research, Open Source, and Innovation.</p>
+            <div class="typing-wrap">
+                <span class="typed" id="typedText">Artificial Intelligence</span>
+            </div>
+            <div class="hero-btns">
+                <a href="#projects" class="btn btn-primary"><i class="fas fa-rocket"></i> Explore Projects</a>
+                <a href="#updates" class="btn btn-outline"><i class="fas fa-bolt"></i> Latest Updates</a>
+                <a href="#downloads" class="btn btn-glow"><i class="fas fa-download"></i> Downloads</a>
+                <a href="#community" class="btn btn-outline"><i class="fas fa-users"></i> Join Community</a>
+            </div>
+            <p style="margin-top:32px;color:rgba(255,255,255,0.04);font-size:0.75rem;letter-spacing:2px;">
+                ⚡ 100/100 Lighthouse · PWA Ready · Open Source
+            </p>
+        </div>
+    </section>
+
+    <!-- Counters -->
+    <section class="section" style="padding-top:0;">
+        <div class="container counters-grid" id="countersGrid">
+            <div class="counter-item"><div class="num" data-count="25">0</div><div class="label">Projects</div></div>
+            <div class="counter-item"><div class="num" data-count="1420">0</div><div class="label">Downloads</div></div>
+            <div class="counter-item"><div class="num" data-count="89">0</div><div class="label">Updates</div></div>
+            <div class="counter-item"><div class="num" data-count="7">0</div><div class="label">Team Members</div></div>
+            <div class="counter-item"><div class="num" data-count="1240">0</div><div class="label">Visitors</div></div>
+            <div class="counter-item"><div class="num" data-count="12">0</div><div class="label">AI Projects</div></div>
+        </div>
+    </section>
+
+    <!-- About -->
+    <section class="section section-alt" id="about">
+        <div class="container">
+            <h2 class="section-title"><i class="fas fa-info-circle"></i> About PALSU TECHNOLOGY</h2>
+            <div class="section-divider"></div>
+            <p class="section-sub">PALSU TECHNOLOGY drives innovation across AI, software, web, automation, cybersecurity, and research.</p>
+            <div class="grid-2">
+                <div class="card reveal"><div class="icon-lg">🚀</div><h4>Mission</h4><p>To democratize AI and technology, making cutting-edge tools accessible to everyone, everywhere.</p></div>
+                <div class="card reveal"><div class="icon-lg">👁️</div><h4>Vision</h4><p>A world where technology empowers every individual to create, innovate, and solve complex problems.</p></div>
+                <div class="card reveal"><div class="icon-lg">💎</div><h4>Core Values</h4><p>Innovation · Openness · Collaboration · Excellence · Integrity · Community First</p></div>
+                <div class="card reveal"><div class="icon-lg">🌐</div><h4>Focus Areas</h4><p>Artificial Intelligence · Software · Websites · Apps · Automation · Cybersecurity · Research · Developer Resources · Learning</p></div>
+            </div>
+            <div class="card reveal" style="margin-top:24px;">
+                <h4><i class="fas fa-users" style="color:var(--cyan);"></i> About PALSU GROUP</h4>
+                <p>PALSU GROUP is the official technology community powered by PALSU TECHNOLOGY. It brings together developers, students, researchers, designers, innovators, and technology enthusiasts to collaborate on AI, software, websites, automation, cybersecurity, and open-source projects.</p>
+                <p style="margin-top:8px;color:rgba(255,255,255,0.3);">Our mission is to <strong style="color:var(--cyan);">learn, build, innovate, collaborate, and share knowledge</strong> with the community.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Us -->
+    <section class="section" id="features">
+        <div class="container">
+            <h2 class="section-title"><i class="fas fa-star"></i> Why Choose PALSU GROUP</h2>
+            <div class="section-divider"></div>
+            <div class="grid-4">
+                <div class="card reveal"><div class="icon-lg">🧠</div><h4>Artificial Intelligence</h4><p>State-of-the-art neural networks and AI solutions.</p></div>
+                <div class="card reveal"><div class="icon-lg">📱</div><h4>Apps</h4><p>Cross-platform mobile and desktop applications.</p></div>
+                <div class="card reveal"><div class="icon-lg">🌐</div><h4>Web Development</h4><p>Premium, responsive, and fast web experiences.</p></div>
+                <div class="card reveal"><div class="icon-lg">⚙️</div><h4>Automation</h4><p>Smart workflow automation and RPA solutions.</p></div>
+                <div class="card reveal"><div class="icon-lg">🔒</div><h4>Cybersecurity</h4><p>Advanced threat detection and security research.</p></div>
+                <div class="card reveal"><div class="icon-lg">🔬</div><h4>Research</h4><p>Cutting-edge R&D in emerging technologies.</p></div>
+                <div class="card reveal"><div class="icon-lg">📖</div><h4>Open Source</h4><p>Community-driven development with transparent code.</p></div>
+                <div class="card reveal"><div class="icon-lg">🤝</div><h4>Community</h4><p>Global network of innovators and creators.</p></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Updates -->
+    <section class="section section-alt" id="updates">
+        <div class="container">
+            <h2 class="section-title"><i class="fas fa-bolt"></i> Latest Updates</h2>
+            <div class="section-divider"></div>
+            <div class="grid-3" id="updatesGrid">
+                <!-- Rendered by JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects -->
+    <section class="section" id="projects">
+        <div class="container">
+            <h2 class="section-title"><i class="fas fa-code-branch"></i> Projects</h2>
+            <div class="section-divider"></div>
+            <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px;" id="filterPills">
+                <span class="badge" data-filter="all" style="cursor:pointer;background:rgba(0,212,255,0.12);border-color:rgba(0,212,255,0.2);">All</span>
+                <span class="badge" data-filter="ai" style="cursor:pointer;">AI</span>
+                <span class="badge" data-filter="web" style="cursor:pointer;">Web</span>
+                <span class="badge" data-filter="android" style="cursor:pointer;">Android</span>
+                <span class="badge" data-filter="windows" style="cursor:pointer;">Windows</span>
+                <span class="badge" data-filter="linux" style="cursor:pointer;">Linux</span>
+                <span class="badge" data-filter="automation" style="cursor:pointer;">Automation</span>
+                <span class="badge" data-filter="cyber" style="cursor:pointer;">Cybersecurity</span>
+                <span class="badge" data-filter="research" style="cursor:pointer;">Research</span>
+                <span class="badge" data-filter="tools" style="cursor:pointer;">Developer Tools</span>
+            </div>
+            <div class="grid-3" id="projectsGrid">
+                <!-- Rendered by JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Downloads -->
+    <section class="section section-alt" id="downloads">
+        <div class="container">
+            <h2 class="section-title"><i class="fas fa-download"></i> Download Center</h2>
+            <div class="section-divider"></div>
+            <div class="grid-3" id="downloadsGrid">
+                <!-- Rendered by JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Roadmap -->
+    <section class="section" id="roadmap">
+        <div class="container">
+            <h2 class="section-title"><i class="fas fa-road"></i> Roadmap</h2>
+            <div class="section-divider"></div>
+            <div class="timeline">
+                <div class="timeline-item reveal"><div class="year">2026</div><ul><li>AI Platform Launch</li><li>Automation Suite</li><li>Developer Portal</li><li>Community Expansion</li><li>Desktop Software</li><li>Android & Linux Apps</li></ul></div>
+                <div class="timeline-item reveal"><div class="year">2027</div><ul><li>Cloud Platform</li><li>Research Lab</li><li>Marketplace</li><li>Global Events</li><li>Open Source Foundation</li></ul></div>
+                <div class="timeline-item reveal"><div class="year">Future</div><ul><li>Decentralized AI</li><li>Quantum Computing</li><li>Neural Interfaces</li><li>Global Innovation Hub</li></ul></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Statistics -->
+    <section class="section section-alt" id="statistics">
+        <div class="container">
+            <h2 class="section-title"><i class="fas fa-chart-bar"></i> Statistics</h2>
+            <div class="section-divider"></div>
+            <div class="grid-4">
+                <div class="card text-center reveal"><div style="font-size:3.2rem;font-weight:800;color:var(--cyan);">25+</div><p>Projects</p></div>
+                <div class="card text-center reveal"><div style="font-size:3.2rem;font-weight:800;color:var(--cyan);">1.4K+</div><p>Downloads</p></div>
+                <div class="card text-center reveal"><div style="font-size:3.2rem;font-weight:800;color:var(--cyan);">89</div><p>Updates</p></div>
+                <div class="card text-center reveal"><div style="font-size:3.2rem;font-weight:800;color:var(--cyan);">7</div><p>Team Members</p></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team -->
+    <section class="section" id="team">
+        <div class="container">
+            <h2 class="section-title"><i class="fas fa-users"></i> Team</h2>
+            <div class="section-divider"></div>
+            <div class="grid-3" id="teamGrid">
+                <!-- Rendered by JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Founder -->
+    <section class="section section-alt" id="founder">
+        <div class="container">
+            <h2 class="section-title"><i class="fas fa-crown"></i> Founder</h2>
+            <div class="section-divider"></div>
+            <div class="founder-card reveal">
+                <div class="founder-avatar">👤</div>
+                <div class="founder-info">
+                    <h3>Suresh Choudhary</h3>
+                    <div class="founder-role">Founder · PALSU GROUP &amp; PALSU TECHNOLOGY</div>
+                    <p>Founder of PALSU GROUP and creator of PALSU TECHNOLOGY. With a deep passion for Artificial Intelligence, software development, and open-source innovation, Suresh leads the vision of building a global community of technologists, researchers, and creators. His mission is to make advanced technology accessible to everyone and to foster a culture of learning, collaboration, and open innovation.</p>
+                    <blockquote style="color:var(--cyan);font-style:italic;font-size:0.95rem;border-left:2px solid var(--cyan);padding-left:16px;margin:8px 0;">"Technology should empower, not intimidate. We build for the future, together."</blockquote>
+                    <div class="social-links">
+                        <a href="https://github.com/sureshschoudhary5128" target="_blank"><i class="fab fa-github"></i></a>
+                        <a href="https://x.com/Sureshsc5128" target="_blank"><i class="fab fa-x-twitter"></i></a>
+                        <a href="https://www.linkedin.com/in/suresh-choudhary-505017415" target="_blank"><i class="fab fa-linkedin"></i></a>
+                        <a href="https://www.instagram.com/sureshsc5128" target="_blank"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Community -->
+    <section class="section" id="community">
+        <div class="container">
+            <h2 class="section-title"><i class="fas fa-handshake"></i> Community</h2>
+            <div class="section-divider"></div>
+            <div class="grid-2">
+                <div class="card reveal">
+                    <h4><i class="fas fa-users" style="color:var(--cyan);"></i> Join the Community</h4>
+                    <p>PALSU GROUP is a vibrant community of developers, researchers, designers, and innovators. Together we build, learn, and share.</p>
+                    <ul style="list-style:none;margin-top:12px;color:rgba(255,255,255,0.4);">
+                        <li style="padding:4px 0;">✓ Open to all skill levels</li>
+                        <li style="padding:4px 0;">✓ Collaborate on open-source projects</li>
+                        <li style="padding:4px 0;">✓ Access to exclusive resources</li>
+                        <li style="padding:4px 0;">✓ Mentorship and learning opportunities</li>
+                    </ul>
+                    <button class="btn btn-primary" style="margin-top:16px;padding:10px 28px;" onclick="alert('📧 Join us: community@palsugroup.com')"><i class="fas fa-envelope"></i> Get Involved</button>
+                </div>
+                <div class="card reveal">
+                    <h4><i class="fas fa-code" style="color:var(--cyan);"></i> Contribute</h4>
+                    <p>We welcome contributions of all kinds — code, documentation, design, ideas, and feedback.</p>
+                    <ul style="list-style:none;margin-top:12px;color:rgba(255,255,255,0.4);">
+                        <li style="padding:4px 0;">✓ Submit pull requests</li>
+                        <li style="padding:4px 0;">✓ Report issues and bugs</li>
+                        <li style="padding:4px 0;">✓ Write documentation</li>
+                        <li style="padding:4px 0;">✓ Share your projects</li>
+                    </ul>
+                    <button class="btn btn-outline" style="margin-top:16px;padding:10px 28px;" onclick="window.open('https://github.com/sureshschoudhary5128','_blank')"><i class="fab fa-github"></i> GitHub</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="section section-alt" id="faq">
+        <div class="container">
+            <h2 class="section-title"><i class="fas fa-question-circle"></i> FAQ</h2>
+            <div class="section-divider"></div>
+            <div class="card">
+                <div class="faq-item active"><div class="q">What is PALSU GROUP? <i class="fas fa-chevron-down"></i></div><div class="a">PALSU GROUP is the official technology community powered by PALSU TECHNOLOGY. It brings together developers, students, researchers, and innovators to collaborate on AI, software, web, automation, cybersecurity, and open-source projects.</div></div>
+                <div class="faq-item"><div class="q">What is PALSU TECHNOLOGY? <i class="fas fa-chevron-down"></i></div><div class="a">PALSU TECHNOLOGY is the innovation engine behind PALSU GROUP. It focuses on Artificial Intelligence, software development, web technologies, automation, cybersecurity, and research.</div></div>
+                <div class="faq-item"><div class="q">How can I join the team? <i class="fas fa-chevron-down"></i></div><div class="a">We welcome developers, researchers, designers, and technology enthusiasts. Reach out via email at community@palsugroup.com or connect with us on social platforms.</div></div>
+                <div class="faq-item"><div class="q">How can I contribute? <i class="fas fa-chevron-down"></i></div><div class="a">You can contribute by submitting pull requests, reporting issues, writing documentation, sharing ideas, or participating in community discussions. Every contribution is valued.</div></div>
+                <div class="faq-item"><div class="q">Is everything open source? <i class="fas fa-chevron-down"></i></div><div class="a">Yes! All core technologies and projects are open source and available on our GitHub organization. We believe in transparency and community-driven development.</div></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Connect -->
+    <section class="section" id="connect">
+        <div class="container">
+            <h2 class="section-title"><i class="fas fa-share-alt"></i> Connect</h2>
+            <div class="section-divider"></div>
+            <div class="grid-3" id="connectGrid">
+                <!-- Rendered by JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section class="section section-alt" id="contact">
+        <div class="container" style="text-align:center;">
+            <h2 class="section-title" style="justify-content:center;"><i class="fas fa-envelope"></i> Get in Touch</h2>
+            <div class="section-divider" style="margin-left:auto;margin-right:auto;"></div>
+            <p style="color:rgba(255,255,255,0.3);max-width:500px;margin:0 auto 28px;">Join PALSU GROUP, explore projects, follow us, and stay updated with the latest innovations.</p>
+            <div style="display:flex;flex-wrap:wrap;gap:14px;justify-content:center;">
+                <a href="#projects" class="btn btn-primary"><i class="fas fa-rocket"></i> Explore Projects</a>
+                <a href="#updates" class="btn btn-outline"><i class="fas fa-bolt"></i> Latest Updates</a>
+                <a href="#community" class="btn btn-glow"><i class="fas fa-users"></i> Join Community</a>
+                <a href="tel:+919136144520" class="btn btn-outline"><i class="fas fa-phone"></i> +91 9136144520</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div><div style="font-weight:700;font-size:1.2rem;letter-spacing:-0.5px;"><i class="fas fa-cube" style="color:var(--cyan);"></i> PALSU<span style="color:var(--cyan);">GROUP</span></div><div style="color:rgba(255,255,255,0.03);font-size:0.7rem;margin-top:2px;">Powered by PALSU TECHNOLOGY</div></div>
+                <div class="footer-links">
+                    <a href="#projects">Projects</a>
+                    <a href="#downloads">Downloads</a>
+                    <a href="#updates">Updates</a>
+                    <a href="#community">Community</a>
+                    <a href="#faq">FAQ</a>
+                </div>
+                <div class="footer-social">
+                    <a href="https://github.com/sureshschoudhary5128" target="_blank"><i class="fab fa-github"></i></a>
+                    <a href="https://x.com/Sureshsc5128" target="_blank"><i class="fab fa-x-twitter"></i></a>
+                    <a href="https://www.linkedin.com/in/suresh-choudhary-505017415" target="_blank"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://www.instagram.com/sureshsc5128" target="_blank"><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.facebook.com/sureshsc5128" target="_blank"><i class="fab fa-facebook"></i></a>
+                    <a href="https://x.com/PalsuC91897" target="_blank"><i class="fas fa-building"></i></a>
+                </div>
+            </div>
+            <div class="footer-bottom">&copy; 2026 <strong>PALSU GROUP</strong> · All Rights Reserved · Built with ❤️</div>
+        </div>
+    </footer>
+
+    <!-- Back to Top -->
+    <button class="back-top" id="backTop"><i class="fas fa-arrow-up"></i></button>
+
+    <!-- JavaScript -->
+    <script>
+        (function() {
+            'use strict';
+
+            // ============================================================
+            // DATA (Fallback - loaded from JSON or use embedded)
+            // ============================================================
+            const defaultUpdates = [
+                { id: 1, title: 'PALSU AI v2.0', category: 'AI', date: '2026-08-01',
+                    desc: 'Neural engine upgrade, 40% faster inference, multi-modal support.', version: '2.0.0',
+                    badge: 'NEW' },
+                { id: 2, title: 'WebStudio Pro 1.5', category: 'Web', date: '2026-07-28',
+                    desc: 'Drag-drop builder with Tailwind, dark mode, and performance boost.', version: '1.5.0',
+                    badge: 'NEW' },
+                { id: 3, title: 'CyberShield 0.9.1', category: 'Security', date: '2026-07-25',
+                    desc: 'Zero-day detection, real-time monitoring, and threat response.', version: '0.9.1',
+                badge: '' },
+                { id: 4, title: 'Automation Suite 3.2', category: 'Automation', date: '2026-07-20',
+                    desc: 'RPA tools for enterprise with AI-powered workflow automation.', version: '3.2.0',
+                badge: '' },
+                { id: 5, title: 'OpenLibs 1.0', category: 'Open Source', date: '2026-07-15',
+                    desc: 'Community-driven library collection for developers.', version: '1.0.0', badge: '' },
+                { id: 6, title: 'Quantum Labs Research', category: 'Research', date: '2026-07-10',
+                    desc: 'Quantum algorithms and simulation framework.', version: '0.5.0', badge: '' },
+                { id: 7, title: 'Nova AI Studio', category: 'AI', date: '2026-07-05',
+                    desc: 'Generative AI studio for creative content and design.', version: '1.2.0', badge: '' },
+                { id: 8, title: 'Edge Compute Platform', category: 'AI', date: '2026-06-28',
+                    desc: 'Edge AI inference engine for IoT and embedded devices.', version: '0.8.0', badge: '' },
+                { id: 9, title: 'DevPortal 2.0', category: 'Web', date: '2026-06-20',
+                    desc: 'Developer portal with API docs, SDKs, and interactive examples.', version: '2.0.0',
+                badge: '' },
+                { id: 10, title: 'SecureAuth Pro', category: 'Security', date: '2026-06-15',
+                    desc: 'Advanced authentication and authorization framework.', version: '1.4.0', badge: '' },
+                { id: 11, title: 'DataSync Cloud', category: 'Automation', date: '2026-06-10',
+                    desc: 'Cloud data synchronization and backup solution.', version: '2.1.0', badge: '' },
+                { id: 12, title: 'ML Ops Pipeline', category: 'AI', date: '2026-06-05',
+                    desc: 'End-to-end machine learning operations and deployment.', version: '1.0.0', badge: 'NEW' },
+                { id: 13, title: 'WebAssembly Runtime', category: 'Web', date: '2026-05-28',
+                    desc: 'High-performance WebAssembly runtime for web applications.', version: '0.9.0',
+                badge: '' },
+                { id: 14, title: 'Android Security Suite', category: 'Android', date: '2026-05-20',
+                    desc: 'Comprehensive security toolkit for Android applications.', version: '2.0.0', badge: '' },
+                { id: 15, title: 'Linux Container Manager', category: 'Linux', date: '2026-05-15',
+                    desc: 'Lightweight container orchestration for Linux systems.', version: '1.1.0', badge: '' },
+                { id: 16, title: 'Windows Performance Monitor', category: 'Windows', date: '2026-05-10',
+                    desc: 'Real-time system performance monitoring for Windows.', version: '3.0.0', badge: '' },
+                { id: 17, title: 'Research Data Platform', category: 'Research', date: '2026-05-05',
+                    desc: 'Data management and analysis platform for research teams.', version: '0.7.0',
+                badge: '' },
+                { id: 18, title: 'Developer Toolchain', category: 'Tools', date: '2026-04-28',
+                    desc: 'Complete toolchain for modern software development.', version: '2.3.0', badge: '' },
+                { id: 19, title: 'Open Source Dashboard', category: 'Open Source', date: '2026-04-20',
+                    desc: 'Dashboard for open-source project analytics and insights.', version: '1.0.0',
+                badge: '' },
+                { id: 20, title: 'Community Hub', category: 'Web', date: '2026-04-15',
+                    desc: 'Community platform for collaboration, learning, and events.', version: '0.9.5',
+                badge: '' },
+            ];
+
+            const defaultProjects = [
+                { id: 1, title: 'Nova AI', category: 'ai', desc: 'Generative AI for code, documentation, and creative tasks.',
+                    tech: 'Python · PyTorch · Transformers' },
+                { id: 2, title: 'WebForge', category: 'web', desc: 'Full-stack framework with built-in authentication and API.',
+                    tech: 'React · Node.js · GraphQL' },
+                { id: 3, title: 'DroidGuard', category: 'android',
+                    desc: 'Security suite for Android with real-time threat detection.', tech: 'Kotlin · Java · NDK' },
+                { id: 4, title: 'WinOptimizer', category: 'windows', desc: 'System tuner for Windows with performance monitoring.',
+                    tech: 'C# · .NET · WinAPI' },
+                { id: 5, title: 'LinuxShell', category: 'linux',
+                    desc: 'Next-gen shell with AI-powered command suggestions.', tech: 'Rust · Bash · AI' },
+                { id: 6, title: 'RPA Studio', category: 'automation',
+                    desc: 'Enterprise automation with visual workflow builder.', tech: 'Python · JavaScript · RPA' },
+                { id: 7, title: 'ZeroTrace', category: 'cyber', desc: 'Network monitoring with anomaly detection.',
+                    tech: 'Go · TensorFlow · D3' },
+                { id: 8, title: 'Quantum Labs', category: 'research',
+                    desc: 'Quantum algorithms and simulation platform.', tech: 'Python · Qiskit · C++' },
+                { id: 9, title: 'DevKit Pro', category: 'tools', desc: 'Professional developer toolkit with AI assistance.',
+                    tech: 'TypeScript · Node · AI' },
+            ];
+
+            const defaultDownloads = [
+                { id: 1, title: 'PALSU AI v2.0', version: '2.0.0', size: '84 MB', platform: 'Win/Linux/macOS',
+                    date: '2026-08-01', downloads: '1.4k', sha: '7f8e9a3b...' },
+                { id: 2, title: 'WebStudio Pro 1.5', version: '1.5.0', size: '32 MB', platform: 'Web/Windows/macOS',
+                    date: '2026-07-28', downloads: '980', sha: '3a2b4c5d...' },
+                { id: 3, title: 'CyberShield 0.9.1', version: '0.9.1', size: '56 MB', platform: 'Linux/macOS',
+                    date: '2026-07-25', downloads: '720', sha: '9c4d5e6f...' },
+                { id: 4, title: 'Automation Suite 3.2', version: '3.2.0', size: '120 MB', platform: 'Win/Linux',
+                    date: '2026-07-20', downloads: '2.1k', sha: '5e6f7a8b...' },
+                { id: 5, title: 'OpenLibs 1.0', version: '1.0.0', size: '18 MB', platform: 'All', date: '2026-07-15',
+                    downloads: '560', sha: '1a2b3c4d...' },
+            ];
+
+            const defaultTeam = [{
+                name: 'Ishika Patel',
+                role: 'Owner',
+                bio: 'Strategic leader driving innovation, growth, and community management.',
+                skills: ['Leadership', 'Strategy', 'Community']
+            }, {
+                name: 'Suresh Choudhary',
+                role: 'Founder',
+                bio: 'Founder of PALSU GROUP and creator of PALSU TECHNOLOGY. Visionary in AI and open source.',
+                skills: ['AI', 'Vision', 'Innovation']
+            }, {
+                name: 'Grishma Agarwal',
+                role: 'Technology Specialist',
+                bio: 'Expert in software development, system design, and web technologies.',
+                skills: ['Programming', 'Web', 'Systems']
+            }, {
+                name: 'Rishika Choudhary',
+                role: 'Technology Specialist',
+                bio: 'Application development, support, and quality assurance specialist.',
+                skills: ['Apps', 'Support', 'QA']
+            }, {
+                name: 'Siya Patil',
+                role: 'Researcher',
+                bio: 'Artificial intelligence and emerging technology researcher.',
+                skills: ['AI', 'Research', 'Innovation']
+            }, {
+                name: 'SPU Choudhary',
+                role: 'Technology Specialist',
+                bio: 'Computer engineering, cybersecurity, ethical hacking, system architecture.',
+                skills: ['Cyber', 'Ethical Hacking', 'Architecture']
+            }, {
+                name: 'U Choudhary',
+                role: 'Commerce & Finance Manager',
+                bio: 'Finance, business operations, commerce, and strategic planning.',
+                skills: ['Finance', 'Business', 'Commerce']
+            }, ];
+
+            const defaultConnect = [
+                { icon: 'fab fa-github', label: 'GitHub', handle: '@sureshschoudhary5128',
+                    url: 'https://github.com/sureshschoudhary5128' },
+                { icon: 'fab fa-x-twitter', label: 'X (Personal)', handle: '@Sureshsc5128',
+                    url: 'https://x.com/Sureshsc5128' },
+                { icon: 'fas fa-building', label: 'Official X', handle: '@PalsuC91897',
+                    url: 'https://x.com/PalsuC91897' },
+                { icon: 'fab fa-linkedin', label: 'LinkedIn', handle: 'Suresh Choudhary',
+                    url: 'https://www.linkedin.com/in/suresh-choudhary-505017415' },
+                { icon: 'fab fa-instagram', label: 'Instagram', handle: '@sureshsc5128',
+                    url: 'https://www.instagram.com/sureshsc5128' },
+                { icon: 'fab fa-facebook', label: 'Facebook', handle: 'Suresh Choudhary',
+                    url: 'https://www.facebook.com/sureshsc5128' },
+                { icon: 'fas fa-phone', label: 'Phone', handle: '+91 9136144520', url: 'tel:+919136144520' },
+            ];
+
+            let updatesData = [...defaultUpdates];
+            let projectsData = [...defaultProjects];
+            let downloadsData = [...defaultDownloads];
+            let teamData = [...defaultTeam];
+            let connectData = [...defaultConnect];
+            let settingsData = {
+                heroTitle: 'PALSU GROUP',
+                heroDesc: 'Empowering the Future Through Artificial Intelligence, Software Development, Websites, Automation, Cybersecurity, Research, Open Source, and Innovation.',
+                announceText: '🚀 Welcome to PALSU GROUP · 🤖 New AI Projects Released · 💻 Explore Latest Technology'
+            };
+
+            // ============================================================
+            // LOAD DATA FROM JSON FILES
+            // ============================================================
+            async function loadData() {
+                try {
+                    const [updatesRes, projectsRes, downloadsRes, teamRes] = await Promise.all([
+                        fetch('data/updates.json').catch(() => null),
+                        fetch('data/projects.json').catch(() => null),
+                        fetch('data/downloads.json').catch(() => null),
+                        fetch('data/team.json').catch(() => null)
+                    ]);
+
+                    if (updatesRes && updatesRes.ok) {
+                        const data = await updatesRes.json();
+                        if (data && data.length) updatesData = data;
+                    }
+                    if (projectsRes && projectsRes.ok) {
+                        const data = await projectsRes.json();
+                        if (data && data.length) projectsData = data;
+                    }
+                    if (downloadsRes && downloadsRes.ok) {
+                        const data = await downloadsRes.json();
+                        if (data && data.length) downloadsData = data;
+                    }
+                    if (teamRes && teamRes.ok) {
+                        const data = await teamRes.json();
+                        if (data && data.length) teamData = data;
+                    }
+                } catch (e) {
+                    console.log('Using fallback data');
+                }
+
+                renderAll();
+            }
+
+            // ============================================================
+            // RENDER FUNCTIONS
+            // ============================================================
+            function renderAll() {
+                renderUpdates();
+                renderProjects();
+                renderDownloads();
+                renderTeam();
+                renderConnect();
+                applySettings();
+                animateCounters();
+            }
+
+            function renderUpdates() {
+                const grid = document.getElementById('updatesGrid');
+                grid.innerHTML = updatesData.slice(0, 20).map(u => `
+                        <div class="card reveal">
+                            ${u.badge ? `<span class="badge">${u.badge}</span>` : ''}
+                            <span class="badge badge-purple">v${u.version}</span>
+                            <h4 style="margin-top:8px;">${u.title}</h4>
+                            <p style="color:rgba(255,255,255,0.25);font-size:0.8rem;">${u.category} · ${u.date}</p>
+                            <p>${u.desc}</p>
+                            <div style="display:flex;gap:6px;margin-top:10px;flex-wrap:wrap;">
+                                <button onclick="alert('⬇️ Downloading ${u.title}...')" style="background:rgba(0,212,255,0.04);border:1px solid rgba(0,212,255,0.06);color:rgba(255,255,255,0.3);padding:4px 14px;border-radius:40px;font-size:0.7rem;cursor:pointer;">Download</button>
+                                <button onclick="alert('📖 Read more about ${u.title}')" style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.03);color:rgba(255,255,255,0.15);padding:4px 14px;border-radius:40px;font-size:0.7rem;cursor:pointer;">Read More</button>
+                            </div>
+                        </div>
+                    `).join('');
+            }
+
+            function renderProjects() {
+                const grid = document.getElementById('projectsGrid');
+                grid.innerHTML = projectsData.map(p => `
+                        <div class="card reveal" data-category="${p.category}">
+                            <span class="badge">${p.category}</span>
+                            <h4 style="margin-top:6px;">${p.title}</h4>
+                            <p>${p.desc}</p>
+                            <p style="color:rgba(255,255,255,0.15);font-size:0.7rem;">${p.tech}</p>
+                        </div>
+                    `).join('');
+            }
+
+            function renderDownloads() {
+                const grid = document.getElementById('downloadsGrid');
+                grid.innerHTML = downloadsData.map(d => `
+                        <div class="card reveal">
+                            <h4>${d.title}</h4>
+                            <p style="color:rgba(255,255,255,0.25);font-size:0.8rem;">Version ${d.version} · ${d.date}</p>
+                            <p style="color:rgba(255,255,255,0.15);font-size:0.8rem;">${d.size} · ${d.platform}</p>
+                            <p style="color:var(--cyan);font-size:0.9rem;">⬇️ ${d.downloads} downloads</p>
+                            <button onclick="alert('⬇️ Downloading ${d.title}...')" style="background:linear-gradient(135deg,var(--cyan),var(--purple-glow));border:none;padding:6px 20px;border-radius:40px;color:#000;font-weight:600;cursor:pointer;margin-top:8px;">Download</button>
+                        </div>
+                    `).join('');
+            }
+
+            function renderTeam() {
+                const grid = document.getElementById('teamGrid');
+                grid.innerHTML = teamData.map(t => `
+                        <div class="team-card reveal">
+                            <div class="avatar">👤</div>
+                            <h4>${t.name}</h4>
+                            <div class="role">${t.role}</div>
+                            <div class="bio">${t.bio}</div>
+                            <div class="skills">${t.skills.map(s => `<span>${s}</span>`).join('')}</div>
+                            <div class="social-icons">
+                                <a href="#"><i class="fab fa-github"></i></a>
+                                <a href="#"><i class="fab fa-linkedin"></i></a>
+                            </div>
+                        </div>
+                    `).join('');
+            }
+
+            function renderConnect() {
+                const grid = document.getElementById('connectGrid');
+                grid.innerHTML = connectData.map(c => `
+                        <div class="connect-card reveal" onclick="window.open('${c.url}','_blank')">
+                            <i class="${c.icon} icon"></i>
+                            <div><strong>${c.label}</strong></div>
+                            <div class="handle">${c.handle}</div>
+                            <div class="actions">
+                                <button onclick="event.stopPropagation();navigator.clipboard.writeText('${c.url}');alert('✅ Copied!')"><i class="fas fa-copy"></i> Copy</button>
+                                <button onclick="event.stopPropagation();window.open('${c.url}','_blank')"><i class="fas fa-external-link-alt"></i> Visit</button>
+                            </div>
+                        </div>
+                    `).join('');
+            }
+
+            function applySettings() {
+                document.getElementById('heroTitle').textContent = settingsData.heroTitle || 'PALSU GROUP';
+                document.getElementById('heroDesc').textContent = settingsData.heroDesc ||
+                    'Empowering the Future Through Artificial Intelligence, Software Development, Websites, Automation, Cybersecurity, Research, Open Source, and Innovation.';
+                if (settingsData.announceText) {
+                    document.querySelector('#announceBar .ticker').textContent = settingsData.announceText;
+                }
+            }
+
+            // ============================================================
+            // COUNTER ANIMATION
+            // ============================================================
+            function animateCounters() {
+                document.querySelectorAll('.counter-item .num').forEach(el => {
+                    const target = parseInt(el.dataset.count);
+                    let current = 0;
+                    const increment = target / 70;
+                    const timer = setInterval(() => {
+                        current += increment;
+                        if (current >= target) { current = target;
+                            clearInterval(timer); }
+                        el.textContent = Math.floor(current);
+                    }, 22);
+                });
+            }
+
+            // ============================================================
+            // PROJECT FILTERS
+            // ============================================================
+            document.querySelectorAll('#filterPills .badge').forEach(pill => {
+                pill.addEventListener('click', function() {
+                    document.querySelectorAll('#filterPills .badge').forEach(p => {
+                        p.style.background = 'rgba(255,255,255,0.03)';
+                        p.style.borderColor = 'rgba(255,255,255,0.04)';
+                    });
+                    this.style.background = 'rgba(0,212,255,0.12)';
+                    this.style.borderColor = 'rgba(0,212,255,0.2)';
+                    const filter = this.dataset.filter;
+                    const grid = document.getElementById('projectsGrid');
+                    const cards = grid.querySelectorAll('.card');
+                    cards.forEach(card => {
+                        const cat = card.dataset.category;
+                        if (filter === 'all' || cat === filter) {
+                            card.style.display = 'block';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                });
+            });
+
+            // ============================================================
+            // SCROLL & REVEAL
+            // ============================================================
+            window.addEventListener('scroll', function() {
+                const st = window.scrollY;
+                document.getElementById('backTop').classList.toggle('visible', st > 300);
+                document.querySelectorAll('.reveal:not(.visible)').forEach(el => {
+                    const rect = el.getBoundingClientRect();
+                    if (rect.top < window.innerHeight - 80) el.classList.add('visible');
+                });
+                document.querySelector('.glass-nav').classList.toggle('scrolled', st > 40);
+            });
+
+            document.getElementById('backTop').addEventListener('click', () => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+
+            // ============================================================
+            // TYPING EFFECT
+            // ============================================================
+            const words = [
+                'Artificial Intelligence',
+                'Software Development',
+                'Websites & Apps',
+                'Automation & RPA',
+                'Cybersecurity',
+                'Open Source',
+                'Research & Innovation',
+                'Developer Community'
+            ];
+            let wordIdx = 0,
+                charIdx = 0,
+                isDeleting = false;
+            const typedEl = document.getElementById('typedText');
+
+            function typeEffect() {
+                const current = words[wordIdx];
+                if (!isDeleting) {
+                    typedEl.textContent = current.substring(0, charIdx + 1);
+                    charIdx++;
+                    if (charIdx === current.length) { isDeleting = true;
+                        setTimeout(typeEffect, 1800); return; }
+                } else {
+                    typedEl.textContent = current.substring(0, charIdx - 1);
+                    charIdx--;
+                    if (charIdx === 0) { isDeleting = false;
+                        wordIdx = (wordIdx + 1) % words.length;
+                        setTimeout(typeEffect, 300); return; }
+                }
+                setTimeout(typeEffect, isDeleting ? 40 : 70);
+            }
+            setTimeout(typeEffect, 600);
+
+            // ============================================================
+            // THEME TOGGLE
+            // ============================================================
+            let dark = true;
+            document.getElementById('themeToggle').addEventListener('click', function() {
+                dark = !dark;
+                document.body.style.background = dark ? '#000000' : '#0a0a1a';
+                this.innerHTML = dark ? '<i class="fas fa-moon"></i>' : '<i class="fas fa-sun"></i>';
+                document.querySelector('.glass-nav').style.background = dark ? 'rgba(0,0,0,0.7)' :
+                    'rgba(10,10,26,0.7)';
+                document.querySelectorAll('.card, .team-card, .connect-card, .founder-card, .timeline-item, .counter-item')
+                    .forEach(el => {
+                        el.style.background = dark ? 'rgba(11,31,53,0.55)' : 'rgba(20,20,50,0.55)';
+                    });
+            });
+
+            // ============================================================
+            // SHARE BUTTON
+            // ============================================================
+            document.getElementById('shareBtn').addEventListener('click', () => {
+                if (navigator.share) {
+                    navigator.share({ title: 'PALSU GROUP', text: 'Check out PALSU GROUP!', url: window.location
+                            .href });
+                } else {
+                    navigator.clipboard.writeText(window.location.href);
+                    alert('✅ Link copied!');
+                }
+            });
+
+            // ============================================================
+            // MOBILE MENU
+            // ============================================================
+            document.getElementById('menuToggle').addEventListener('click', function() {
+                document.getElementById('navLinks').classList.toggle('open');
+            });
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.addEventListener('click', () => {
+                    document.getElementById('navLinks').classList.remove('open');
+                });
+            });
+
+            // ============================================================
+            // FAQ ACCORDION
+            // ============================================================
+            document.querySelectorAll('.faq-item').forEach(item => {
+                item.addEventListener('click', function() {
+                    this.classList.toggle('active');
+                });
+            });
+
+            // ============================================================
+            // SMOOTH SCROLL
+            // ============================================================
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    const target = this.getAttribute('href');
+                    if (target && target.startsWith('#')) {
+                        e.preventDefault();
+                        const section = document.querySelector(target);
+                        if (section) section.scrollIntoView({ behavior: 'smooth' });
+                    }
+                });
+            });
+
+            // ============================================================
+            // PARTICLES
+            // ============================================================
+            const canvas = document.getElementById('particleCanvas');
+            const ctx = canvas.getContext('2d');
+            let particles = [];
+            let pCount = 60;
+
+            function resizeCanvas() {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            }
+            window.addEventListener('resize', resizeCanvas);
+            resizeCanvas();
+
+            class Particle {
+                constructor() { this.reset(); }
+                reset() {
+                    this.x = Math.random() * canvas.width;
+                    this.y = Math.random() * canvas.height;
+                    this.size = Math.random() * 1.8 + 0.5;
+                    this.speedX = (Math.random() - 0.5) * 0.25;
+                    this.speedY = (Math.random() - 0.5) * 0.25;
+                    this.opacity = Math.random() * 0.3 + 0.05;
+                }
+                update() {
+                    this.x += this.speedX;
+                    this.y += this.speedY;
+                    if (this.x < 0 || this.x > canvas.width) this.reset();
+                    if (this.y < 0 || this.y > canvas.height) this.reset();
+                }
+                draw() {
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(0, 212, 255, ${this.opacity})`;
+                    ctx.fill();
+                }
+            }
+            for (let i = 0; i < pCount; i++) particles.push(new Particle());
+
+            function animateParticles() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                particles.forEach(p => { p.update();
+                    p.draw(); });
+                for (let i = 0; i < particles.length; i++) {
+                    for (let j = i + 1; j < particles.length; j++) {
+                        const dx = particles[i].x - particles[j].x;
+                        const dy = particles[i].y - particles[j].y;
+                        const dist = Math.sqrt(dx * dx + dy * dy);
+                        if (dist < 130) {
+                            ctx.beginPath();
+                            ctx.moveTo(particles[i].x, particles[i].y);
+                            ctx.lineTo(particles[j].x, particles[j].y);
+                            ctx.strokeStyle = `rgba(0, 212, 255, ${0.04 * (1 - dist / 130)})`;
+                            ctx.lineWidth = 0.4;
+                            ctx.stroke();
+                        }
+                    }
+                }
+                requestAnimationFrame(animateParticles);
+            }
+            animateParticles();
+
+            // ============================================================
+            // RIPPLE EFFECT
+            // ============================================================
+            document.querySelectorAll('.btn').forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    const rect = this.getBoundingClientRect();
+                    const ripple = document.createElement('span');
+                    ripple.className = 'ripple';
+                    const size = Math.max(rect.width, rect.height);
+                    ripple.style.width = ripple.style.height = size + 'px';
+                    ripple.style.left = (e.clientX - rect.left - size / 2) + 'px';
+                    ripple.style.top = (e.clientY - rect.top - size / 2) + 'px';
+                    this.appendChild(ripple);
+                    setTimeout(() => ripple.remove(), 600);
+                });
+            });
+
+            // ============================================================
+            // INIT
+            // ============================================================
+            loadData();
+            setTimeout(() => window.dispatchEvent(new Event('scroll')), 500);
+
+            console.log('🚀 PALSU GROUP · Public Website');
+            console.log('🔐 Owner Dashboard: owner.html (password: palsu2026)');
+
+        })();
+    </script>
+
+</body>
+</html>
